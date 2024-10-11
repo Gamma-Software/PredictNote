@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-logo {
@@ -35,4 +35,71 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* frontend/src/App.css */
+
+.note-editor {
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.content-editor {
+  margin-bottom: 10px;
+}
+
+.suggestion {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.suggestion span {
+  flex-grow: 1;
+}
+
+.suggestion button {
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: rgb(193, 193, 193);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.suggestion button:hover {
+  background-color: #45a049;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+.save-button {
+  padding: 10px 20px;
+  background-color: #008cba;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.save-button:hover {
+  background-color: #007bb5;
 }
