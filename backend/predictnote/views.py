@@ -1,5 +1,4 @@
 # notes/views.py
-import os
 from rest_framework import generics, permissions
 from django.contrib.auth.models import User
 from .models import Note
@@ -11,7 +10,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PredictiveTextSerializer
 from rest_framework.permissions import IsAuthenticated
-import openai
 
 
 # Registration View
@@ -62,21 +60,27 @@ class PredictiveTextView(APIView):
     def post(self, request):
         serializer = PredictiveTextSerializer(data=request.data)
         if serializer.is_valid():
-            prompt = serializer.validated_data["prompt"]
+            message = serializer.validated_data["prompt"]
             max_tokens = serializer.validated_data.get("max_tokens", 50)
-            openai.api_key = os.getenv("OPENAI_API_KEY")
 
             try:
-                response = openai.Completion.create(
-                    engine="gpt-4-1106-preview",  # Choose appropriate model
-                    prompt=prompt,
-                    max_tokens=max_tokens,
-                    n=1,
-                    stop=None,
-                    temperature=0.7,
+                import os
+
+                from langchain_core.output_parsers import StrOutputParser
+                from langchain_core.prompts import ChatPromptTemplate
+                from langchain_openai import ChatOpenAI
+
+                model = ChatOpenAI(model="gpt-4o-mini")
+
+                prompt = ChatPromptTemplate.from_template(
+                    "Continue the next sentence in the same language (output only the continuation): {text}"
                 )
-                suggestion = response.choices[0].text.strip()
-                return Response({"suggestion": suggestion}, status=status.HTTP_200_OK)
+
+                chain = prompt | model | StrOutputParser()
+                result = chain.invoke({"text": message})
+                return Response(
+                    {"suggestion": result.strip()}, status=status.HTTP_200_OK
+                )
             except Exception as e:
                 return Response(
                     {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR

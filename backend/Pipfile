@@ -6,14 +6,13 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
-openai = "*"
 djangorestframework-simplejwt = "*"
 python-dotenv = "*"
 psycopg2-binary = "*"
 django-cors-headers = "*"
+langchain-openai = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
-python_full_version = "3.10.13"
+python_version = "3.11"
