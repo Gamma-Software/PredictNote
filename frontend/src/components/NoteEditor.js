@@ -1,8 +1,9 @@
 // frontend/src/components/NoteEditor.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import debounce from 'lodash.debounce';
 import axios from 'axios';
 import {
+  MDXEditorMethods,
   MDXEditor,
   UndoRedo,
   BoldItalicUnderlineToggles,
@@ -85,8 +86,8 @@ const NoteEditor = () => {
     }, 2000); // 500ms debounce
 
     const handleContentChange = (newContent) => {
-        setContent(newContent);
-        console.log(newContent);
+        setContent(newContent + " !");
+        console.log(newContent + " !");
     };
 
     const handleSave = async () => {
@@ -184,32 +185,14 @@ const NoteEditor = () => {
         );
     }
 
+    // create a ref to the editor component
+    const ref = useRef<MDXEditorMethods>(null)
     return (
-        <div className="note-editor">
-            <div className="header">
-                <input
-                    type="text"
-                    placeholder="Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    className="title-input"
-                />
-                <button onClick={handleSave} className="save-button">
-                    Save Note
-                </button>
-                <button onClick={handleLogout} className="logout-button">
-                    Logout
-                </button>
-            </div>
-            <MDXEditor
-                markdown={content}
-                onChange={handleContentChange}
-                plugins={allPlugins}
-                className="content-editor"
-            />
-            {/* Add this for debugging */}
-            <pre style={{display: 'none'}}>{JSON.stringify({title, content, currentNoteId}, null, 2)}</pre>
-        </div>
+    <>
+        <button onClick={() => ref.current?.setMarkdown('new markdown')}>Set new markdown</button>
+        <button onClick={() => console.log(ref.current?.getMarkdown())}>Get markdown</button>
+        <MDXEditor ref={ref} markdown="hello world" onChange={console.log} />
+    </>
     );
 };
 

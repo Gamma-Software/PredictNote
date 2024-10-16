@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:8000",
   "dependencies": {
+    "@lexical/react": "^0.18.0",
     "@mdxeditor/editor": "^3.14.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -11,6 +12,7 @@
     "@uiw/react-md-editor": "^4.0.4",
     "axios": "^1.7.7",
     "jwt-decode": "^4.0.0",
+    "lexical": "^0.18.0",
     "lodash.debounce": "^4.0.8",
     "quill": "^2.0.2",
     "react": "^18.3.1",

@@ -1,14 +1,26 @@
-// frontend/src/App.js
-import React from 'react';
-import './App.css';
-import NoteEditor from './components/NoteEditor';
+import "./styles.css";
+import Editor from "./components/Lexi";
 
-function App() {
+export default function App() {
   return (
     <div className="App">
-      <NoteEditor />
+      <h1>Rich Text Example</h1>
+      <p>Note: this is an experimental build of Lexical</p>
+      <Editor />
+      <div className="other">
+        <h2>Other Examples</h2>
+        <ul>
+          <li>
+            <a
+              href="https://codesandbox.io/s/lexical-plain-text-example-g932e"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Plain text example
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
-
-export default App;
